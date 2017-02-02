@@ -516,7 +516,7 @@ RECORD: foreach my $record (@{$marc_records}) {
                 };
                 if ($update) {
                     my $success;
-                    eval { $success = ModBiblio($record, $matched_record_id, GetFrameworkCode($matched_record_id), $modify_biblio_marc_options) };
+                    eval { $success = ModBiblio( $record, $biblionumber, GetFrameworkCode($biblionumber), {context => {source => 'bulkmarcimport'}}) };
                     if ($@) {
                         warn "ERROR: Edit biblio $matched_record_id failed: $@\n";
                         printlog( { id => $matched_record_id, op => "update", status => "ERROR" } ) if ($logfile);
@@ -963,4 +963,3 @@ from the migration_tools directory.
 =back
 
 =cut
-
