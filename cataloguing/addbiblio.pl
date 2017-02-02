@@ -850,7 +850,15 @@ if ( $op eq "addbiblio" ) {
             }
         }
         if ( $is_a_modif ) {
-            ModBiblio( $record, $biblionumber, $frameworkcode );
+            my ($member) = C4::Members::GetMember('borrowernumber' => $loggedinuser);
+            ModBiblio( $record, $biblionumber, $frameworkcode, {
+                    context => {
+                        source => $z3950 ? 'z39.50' : 'intranet',
+                        category => $member->{'category_type'},
+                        borrower => $loggedinuser
+                    }
+                }
+            );
         }
         else {
             ( $biblionumber, $oldbibitemnum ) = AddBiblio( $record, $frameworkcode );
@@ -943,6 +951,7 @@ elsif ( $op eq "delete" ) {
     $template->param(
         biblionumberdata => $biblionumber,
         op               => $op,
+        z3950            => $z3950
     );
     if ( $op eq "duplicate" ) {
         $biblionumber = "";
