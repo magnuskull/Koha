@@ -26,7 +26,6 @@ use warnings;
 use CGI qw ( -utf8 );
 use List::MoreUtils qw/uniq/;
 
-
 # internal modules
 use C4::Auth;
 use C4::Context;
@@ -56,9 +55,7 @@ if ( C4::Context->preference('NorwegianPatronDBEnable') && C4::Context->preferen
 }
 use Koha::SMS::Providers;
 
-
 use vars qw($debug);
-
 
 BEGIN {
 	$debug = $ENV{DEBUG} || 0;
