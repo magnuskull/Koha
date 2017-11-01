@@ -217,7 +217,7 @@ sub get_elasticsearch_mappings {
             }
             # Sort may be true, false, or undef. Here we care if it's
             # anything other than undef.
-            if (defined $sort) {
+            if ($sort || !defined $sort) {
                 $mappings->{data}{properties}{ $name . '__sort' } = {
                     search_analyzer => "analyser_phrase",
                     analyzer  => "analyser_phrase",
@@ -351,9 +351,7 @@ sub get_fixer_rules {
             # special handling of this field from other one. "undef" means
             # to do the default thing, which is make it sortable.
             if ($self->sort_fields()->{$name}) {
-                if ($sort || !defined $sort) {
-                    push @rules, "marc_map('$marc_field','${name}__sort.\$append', $options)";
-                }
+                push @rules, "marc_map('$marc_field','${name}__sort.\$append', $options)";
             }
         }
     );
