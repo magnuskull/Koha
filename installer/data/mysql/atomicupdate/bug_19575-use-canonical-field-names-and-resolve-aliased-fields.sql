@@ -1,0 +1,17 @@
+UPDATE `search_field` SET `name` = 'Date-of-publication', `label` = 'Date-of-publication' WHERE `name` = 'pubdate';
+UPDATE `search_field` SET `name` = 'Title-series', `label` = 'Title-series' WHERE `name` = 'se';
+UPDATE `search_field` SET `name` = 'Identifier-standard', `label` = 'Identifier-standard' WHERE `name` = 'identifier-standard';
+UPDATE `search_field` SET `name` = 'Author', `label` = 'Author' WHERE `name` = 'author';
+UPDATE `search_field` SET `name` = 'Control-number', `label` = 'Control-number' WHERE `name` = 'control-number';
+UPDATE `search_field` SET `name` = 'Place-publication', `label` = 'Place-publication' WHERE `name` = 'pl';
+UPDATE `search_field` SET `name` = 'Date-of-acquisition', `label` = 'Date-of-acquisition' WHERE `name` = 'acqdate';
+UPDATE `search_field` SET `name` = 'ISBN', `label` = 'ISBN' WHERE `name` = 'isbn';
+UPDATE `search_field` SET `name` = 'BNB-card-number', `label` = 'BNB-card-number' WHERE `name` = 'bnb-card-number';
+UPDATE `search_field` SET `name` = 'Authority-Number', `label` = 'Authority-Number' WHERE `name` = 'an';
+UPDATE `search_field` SET `name` = 'language', `label` = 'language' WHERE `name` = 'ln';
+UPDATE `search_field` SET `name` = 'Subject', `label` = 'Subject' WHERE `name` = 'subject';
+UPDATE `search_field` SET `name` = 'Publisher', `label` = 'Publisher' WHERE `name` = 'publisher';
+DELETE FROM `search_field` WHERE `name` = 'lc-cardnumber';
+DELETE FROM `search_field` WHERE `name` = 'bnb-card-number';
+UPDATE `search_field` SET `name` = 'Title', `label` = 'Title' WHERE `name` = 'title';
+UPDATE `search_field` SET `name` = 'Local-classification', `label` = 'Local-classification' WHERE `name` = 'local-classification';
