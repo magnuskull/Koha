@@ -786,6 +786,11 @@ OPAC:
               class: multi
             - (separate columns with |)
         -
+            - "Choose alternative URL for user registration form page:"
+            - pref: PatronSelfRegistrationLinkAddress
+              class: short
+            - "This field overrides default Koha registration form."
+        -
             - "Display the following additional instructions for patrons who self register via the OPAC ( HTML is allowed ):"
             - pref: PatronSelfRegistrationAdditionalInstructions
               type: htmlarea

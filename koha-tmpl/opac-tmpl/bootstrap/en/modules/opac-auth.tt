@@ -182,13 +182,18 @@
                                 [% Koha.Preference('NoLoginInstructions') %]
                             [% ELSE %]
                                 <h5>Don't have a password yet?</h5>
-                                <p>If you don't have a password yet, stop by the circulation desk the next time you're in the library. We'll happily set one up for you.</p>
-                                <h5>Don't have a library card?</h5>
-                                <p>If you don't have a library card, stop by your local library to sign up.</p>
-                            [% END # / IF Koha.Preference('NoLoginInstructions') %]
+							<p>If you don't have a password yet, stop by the circulation desk the next time you're in the library. We'll happily set one up for you.</p>
+							<h5>Don't have a library card?</h5>
+							<p>If you don't have a library card, stop by your local library to sign up.</p>
+						[% END # / IF Koha.Preference('NoLoginInstructions') %]
+						[% IF PatronSelfRegistration && PatronSelfRegistrationDefaultCategory %]
 
-                            [% IF PatronSelfRegistration && PatronSelfRegistrationDefaultCategory %]<span id="registrationinstructions"><a href="/cgi-bin/koha/opac-memberentry.pl">You may register here.</a></span>
-                            [% END %]
+							[% IF Koha.Preference( 'PatronSelfRegistrationLinkAddress') %]
+								<span id="registrationinstructions"><a href="[% Koha.Preference( 'PatronSelfRegistrationLinkAddress') %]">You may not register here.</a></span>
+	                       [% ELSE %]
+								<span id="registrationinstructions"><a href="/cgi-bin/koha/opac-memberentry.pl">You may not register here.</a></span>
+			      [% END %]
+                          [% END %]
                             </div>
                             </form>
                         [% END # / IF loginprompt %]
