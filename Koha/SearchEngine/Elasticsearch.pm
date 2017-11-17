@@ -332,7 +332,6 @@ sub reset_elasticsearch_mappings {
 # sort_fields isn't set, then it'll generate it.
 sub sort_fields {
     my $self = shift;
-
     if (@_) {
         $self->_sort_fields_accessor(@_);
         return;
@@ -383,7 +382,9 @@ sub get_fixer_rules {
                 push @rules, "sum('$name')";
             }
             if ($self->sort_fields()->{$name}) {
-                push @rules, "marc_map('$marc_field','${name}__sort.\$append', $options)";
+                if ($sort || !defined $sort) {
+                    push @rules, "marc_map('$marc_field','${name}__sort.\$append', $options)";
+                }
             }
         }
     );
