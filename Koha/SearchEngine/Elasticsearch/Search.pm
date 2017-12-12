@@ -48,7 +48,7 @@ use Koha::SearchEngine::QueryBuilder;
 use Koha::SearchEngine::Search;
 use MARC::Record;
 use Catmandu::Store::ElasticSearch;
-
+use MARC::File::XML;
 use Data::Dumper; #TODO remove
 use Carp qw(cluck);
 
@@ -156,15 +156,26 @@ sub search_compat {
     my $results = $self->search($query, undef, $results_per_page, %options);
 
     # Convert each result into a MARC::Record
-    my (@records, $index);
-    $index = $offset; # opac-search expects results to be put in the
-        # right place in the array, according to $offset
-    $results->each(sub {
-            # The results come in an array for some reason
-            my $marc_json = $_[0]->{record};
-            my $marc = $self->json2marc($marc_json);
-            $records[$index++] = $marc;
-        });
+    my @records;
+    # opac-search expects results to be put in the
+    # right place in the array, according to $offset
+    my $index = $offset;
+    my $marcflavour = uc C4::Context->preference('marcflavour');
+    if (C4::Context->preference('ExperimentalElasticsearchIndexing')) {
+        $results->each(sub {
+                my $xml = $_[0]->{marc_xml};
+                my $record = MARC::Record->new_from_xml($xml, 'UTF-8', $marcflavour);
+                $records[$index++] = $record;
+            });
+    }
+    else {
+        $results->each(sub {
+                # The results come in an array for some reason
+                my $marc_json = $_[0]->{record};
+                my $marc = $self->json2marc($marc_json);
+                $records[$index++] = $marc;
+            });
+    }
     # consumers of this expect a name-spaced result, we provide the default
     # configuration.
     my %result;
